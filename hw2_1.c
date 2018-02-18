@@ -1,11 +1,3 @@
-//
-//  main.c
-//  HW2_1
-//
-//  Created by Gabriel Barros on 2/11/18.
-//  Copyright © 2018 Gabriel Barros. All rights reserved.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
@@ -17,6 +9,7 @@ int main(int argc, char * argv[]) {
     
     FILE *fp;
     char* filename = argv[argc-1];
+    char ch;
     
     int opt;
     while((opt = getopt(argc, argv, "n:")) != -1) {
@@ -31,10 +24,7 @@ int main(int argc, char * argv[]) {
         }
         
     }
-    
-    int ch;
-    int lines = 0;
-    
+        
     fp = fopen(filename, "r");
     
     if(fp == NULL)
@@ -44,29 +34,21 @@ int main(int argc, char * argv[]) {
     else
     {
         do {
-            if( feof(fp) ) {
-                break ;
-            }
-            
+    
             ch = fgetc(fp);
             
-            if(ch == '\n') ++lines;
+            if (feof(fp)) break;
+
+            if(ch == '\n') --numOfLines;
             
             printf("%c", ch);
-            
-            if(lines == numOfLines) break;
-            
-            
-        } while(1);
+        
+        } while(numOfLines > 0);
+        
     }
     
     fclose(fp);
     
     return 0;
 }
-
-
-
-
-
 
